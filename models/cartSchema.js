@@ -18,7 +18,7 @@ const cartSchema = new mongoose.Schema({
   }, // minimum 1
   size: { 
     type: String, 
-    required: true 
+     
   } // shoe size
 }, { timestamps: true });
 

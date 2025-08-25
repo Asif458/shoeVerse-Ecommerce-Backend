@@ -10,10 +10,10 @@ exports.getMe = async (req, res) => {
 
     if (!user) return res.status(404).json({ message: "User not found" });
 
-    // 🚫 prevent browser from caching the response
+    // prevent browser from caching the response
     res.set("Cache-Control", "no-store");
 
-    res.json({ user });
+    res.json( {user} );
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });
@@ -44,7 +44,7 @@ exports.signup = async (req, res) => {
       .status(201)
       .cookie("token", generateToken(user._id, user.role), {
         httpOnly: true,
-        secure: false,      // must be false for localhost
+        secure: false,       
         sameSite: "lax",    // allows cross-origin localhost requests
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
       })
@@ -93,14 +93,25 @@ exports.logout = async (req, res) => {
 };
 
 // ====================== CHANGE PASSWORD ======================
+// const bcrypt = require("bcryptjs");
+// const User = require("../models/User");
+
+// const bcrypt = require("bcryptjs");
+// const User = require("../models/User"); // your Mongoose User model
+
 exports.changePassword = async (req, res) => {
   try {
-    const { oldPassword, newPassword } = req.body;
+    const { currentPassword, oldPassword, newPassword } = req.body;
+    const passwordToCheck = currentPassword || oldPassword;
+
+    if (!passwordToCheck || !newPassword) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
 
     const user = await User.findById(req.user.id);
     if (!user) return res.status(404).json({ message: "User not found" });
 
-    const isMatch = await bcrypt.compare(oldPassword, user.password);
+    const isMatch = await bcrypt.compare(passwordToCheck, user.password);
     if (!isMatch) return res.status(400).json({ message: "Old password is incorrect" });
 
     const hashedPassword = await bcrypt.hash(newPassword, 10);
@@ -109,6 +120,8 @@ exports.changePassword = async (req, res) => {
 
     res.json({ message: "Password changed successfully" });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error("Change Password Error:", err);
+    res.status(500).json({ message: "Server error. Please try again later." });
   }
 };
+

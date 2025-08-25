@@ -11,7 +11,7 @@ const whishlistSchema = new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:"Product",
         required:true
-    } // which product is in the wishlist
+    }                         //which product is in the wishlist
 
 },{timestamps:true});
 

@@ -9,5 +9,5 @@ const userSchema = new mongoose.Schema({
   isBlock: { type: Boolean, default: false },
 }, { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } });
 
-// ✅ Export model in CommonJS
+// Export model in CommonJS
 module.exports = mongoose.model("User", userSchema);

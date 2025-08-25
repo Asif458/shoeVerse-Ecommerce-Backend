@@ -7,7 +7,7 @@ const productSchema = new mongoose.Schema({
   description: { type: String },
   image: { type: String },
   stock: { type: Number, required: true },
-  sizes: [{ type: String }] // available shoe sizes
+  sizes: [{ type: String }] 
 }, { timestamps: true });
 
 module.exports = mongoose.model("Product", productSchema);

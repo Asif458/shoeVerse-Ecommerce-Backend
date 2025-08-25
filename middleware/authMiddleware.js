@@ -11,7 +11,7 @@ const auth = (req, res, next) => {
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
 
-    // ✅ Make sure req.user has an id (matches your controller)
+    //   Make sure req.user has an id (matches your controller)
     req.user = { id: decoded.id, role: decoded.role };
     next();
   } catch (err) {
