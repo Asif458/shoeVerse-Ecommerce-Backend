@@ -12,6 +12,7 @@ const authRoutes = require('./routes/authRoutes');
 const productRoutes = require("./routes/productRoutes")
 const cartRoutes = require("./routes/cartRoutes")
 const whishlistRoutes = require("./routes/whishlistRoutes")
+const orderWishlist = require("./routes/orderRoutes")
  
 
 //_---------------------------DB CONNETION----------------------//
@@ -35,7 +36,10 @@ app.use(cors({
 app.use(express.json());
 app.use(cookieParser());
 
-//-------------------------- --------------------------------//
+//--------------------------routesssssssss --------------------------------//
+
+//orderRoutes
+app.use("/api/orders",orderWishlist)
 
 //whishlistRoutes
 app.use("/api/wishlist",whishlistRoutes)

@@ -22,7 +22,7 @@ const orderSchema = new mongoose.Schema({
       stock: { type: Number },
       sizes: [String],
       quantity: { type: Number, required: true },
-      size: { type: String, required: true }
+      size: { type: String,  }
     }
   ],
 
